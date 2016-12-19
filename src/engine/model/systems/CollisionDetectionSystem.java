@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Weston Carvalho
+
 package engine.model.systems;
 
 import java.util.ArrayList;
@@ -24,7 +27,9 @@ public class CollisionDetectionSystem extends AbstractSystem<CollidableComponent
 	public void checkCollision(PhysicalComponent movedPhysical) {
 		CollidableComponent movedCollidable = getComponent(movedPhysical);
 		if (movedCollidable != null) {
+			//The creation of this list prevents the danger of modifying the list returned by getComponents() while it is being iterated over. 
 			List<CollidableComponent> iterate = new ArrayList<CollidableComponent>(getComponents());
+			
 			for (CollidableComponent unmovedCollidable: iterate)	
 				movedCollidable.checkCollision(unmovedCollidable);
 		}

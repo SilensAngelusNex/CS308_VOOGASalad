@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Weston Carvalho
+
 package engine.model.systems;
 
 import java.util.ArrayList;
@@ -36,8 +39,9 @@ public class MovementSystem extends AbstractSystem<MoveableComponent> implements
 	/********* Observer interface ***********/
 	@Override
 	public void update(TimelineController aChangedObject) {
-		List<MoveableComponent> components = new ArrayList<MoveableComponent>();
-		components.addAll(getComponents());
+		//The creation of this list prevents the danger of modifying the list returned by getComponents() while it is being iterated over. 
+		List<MoveableComponent> components = new ArrayList<MoveableComponent>(getComponents());
+
 		for (MoveableComponent mc :components) {
 			mc.move();
 		}

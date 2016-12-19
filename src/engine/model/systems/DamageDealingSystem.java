@@ -5,6 +5,11 @@ import engine.model.components.concrete.DamageDealingComponent;
 import engine.model.strategies.IDamageStrategy;
 import engine.model.strategies.factories.DamageStrategyFactory;
 
+/**
+ * A system to handle entities dealing damage to other entities
+ * @author Weston
+ *
+ */
 public class DamageDealingSystem extends AbstractSystem<DamageDealingComponent> {
 	private DamageStrategyFactory myStrategyFactory;
 

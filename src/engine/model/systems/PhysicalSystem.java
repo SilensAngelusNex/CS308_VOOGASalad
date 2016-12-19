@@ -8,7 +8,7 @@ import engine.model.game_environment.MapMediator;
 import utility.Point;
 
 /**
- * A system to keep track of all the entities positios on the map
+ * A system to keep track of all the entities positions on the map
  * @author Weston
  *
  */

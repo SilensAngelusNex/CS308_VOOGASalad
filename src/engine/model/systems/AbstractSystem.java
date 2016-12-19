@@ -1,3 +1,7 @@
+// This entire file is part of my masterpiece.
+// Weston Carvalho
+//Look at how this class makes its subclasses much simpler than they are on master
+
 package engine.model.systems;
 
 import java.util.ArrayList;
