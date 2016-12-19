@@ -1,20 +1,14 @@
 package engine.model.systems;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import engine.model.components.IComponent;
 import engine.model.components.concrete.DamageDealingComponent;
-import engine.model.entities.IEntity;
 import engine.model.strategies.IDamageStrategy;
 import engine.model.strategies.factories.DamageStrategyFactory;
 
-public class DamageDealingSystem implements ISystem<DamageDealingComponent> {
-	private List<DamageDealingComponent> myComponents;
+public class DamageDealingSystem extends AbstractSystem<DamageDealingComponent> {
 	private DamageStrategyFactory myStrategyFactory;
 
 	public DamageDealingSystem() {
-		myComponents = new ArrayList<DamageDealingComponent>();
 		myStrategyFactory = new DamageStrategyFactory();
 	}
 
@@ -49,32 +43,5 @@ public class DamageDealingSystem implements ISystem<DamageDealingComponent> {
 	 */
 	public IDamageStrategy newStrategy(String name) {
 		return myStrategyFactory.newStrategy(name);
-	}
-	
-	/***********ISystem interface*******/
-	@Override
-	public List<DamageDealingComponent> getComponents() {
-		return myComponents;
-	}
-	@Override
-	public DamageDealingComponent getComponent(IComponent component) {
-		return component == null ? null : getComponent(component.getEntity());
-	}
-	@Override
-	public DamageDealingComponent getComponent(IEntity entity) {
-		for (DamageDealingComponent component: myComponents) {
-			if (component.getEntity().equals(entity)) {
-				return component;
-			}
-		}
-		return null;
-	}
-	@Override
-	public void attachComponent(DamageDealingComponent aComponet) {
-		myComponents.add(aComponet);
-	}
-	@Override
-	public void detachComponent(DamageDealingComponent aComponent) {
-		myComponents.remove(aComponent);
 	}
 }
