@@ -4,6 +4,11 @@ import engine.model.components.concrete.TargetingComponent;
 import engine.model.systems.PhysicalSystem;
 import engine.model.systems.TeamSystem;
 
+/**
+ * An interface used by targetingComponents to pick a target from the entities around them.
+ * @author Weston
+ *
+ */
 public interface ITargetingStrategy {
 
 	/**

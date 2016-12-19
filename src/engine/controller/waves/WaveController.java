@@ -69,7 +69,7 @@ public class WaveController {
 //				//System.out.println("trying to spawn");
 				IEntity newEntity = myEntityFactory.constructEntity(entityData.getMyEntityData(), spawns.get(0));
 				////System.out.println("after");
-				MoveableComponent m = myMovementSystem.get(newEntity);
+				MoveableComponent m = myMovementSystem.getComponent(newEntity);
 				if (m != null) {
 					m.setGoal(sinks.get(0));
 				}

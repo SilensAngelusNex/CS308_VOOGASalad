@@ -6,6 +6,11 @@ import engine.model.entities.EntityFactory;
 import engine.model.systems.MovementSystem;
 import engine.model.systems.PhysicalSystem;
 
+/**
+ * An interface for strategies that CreatorComponents use to make the correct spawns
+ * @author Weston
+ *
+ */
 public interface ISpawningStrategy {
 
 	/**

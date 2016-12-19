@@ -22,8 +22,8 @@ public class BasicSpawnStrategy implements ISpawningStrategy {
 		try {
 			if (myPhysical.getComponent(creatorComponent) != null) {
 				ConcreteEntity spawn = myEntityFactory.constructEntity(creatorComponent.getSpawnName(), myPhysical.getComponent(creatorComponent).getPosition());
-				if (myMovement.get(spawn) != null)
-					myMovement.get(spawn).setGoal(myTarget);
+				if (myMovement.getComponent(spawn) != null)
+					myMovement.getComponent(spawn).setGoal(myTarget);
 				
 				return spawn;
 			} else 
