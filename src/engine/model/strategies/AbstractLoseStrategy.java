@@ -22,5 +22,10 @@ abstract public class AbstractLoseStrategy<A> extends AbstractWinLoseStrategy<A>
 		}
 	}
 
+	/**
+	 * Check the if the lose condition is satisfied
+	 * @param observed
+	 * @return true iff condition is satisfied
+	 */
 	abstract protected boolean checkCondition(A observed);
 }

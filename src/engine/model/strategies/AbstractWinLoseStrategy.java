@@ -7,6 +7,12 @@ import engine.IObservable;
 import engine.IObserver;
 import engine.model.playerinfo.IModifiablePlayer;
 
+/**
+ * A class to take the player list out of the concrete IWinLoseStrategy objects
+ * @author Weston
+ *
+ * @param <A> the type of the observed objects that the condition will check
+ */
 abstract public class AbstractWinLoseStrategy<A> implements IObserver<A>, IWinLoseStrategy {
 	List<IModifiablePlayer> myPlayers;
 	

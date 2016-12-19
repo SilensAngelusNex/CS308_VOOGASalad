@@ -27,5 +27,10 @@ public interface IComponent {
 	 */
 	public void distributeInfo();
 
+	/**
+	 * Detatches the entity from any Systems it belongs to and sets any values that others might be watching to null.
+	 * It would free all of it's fields, but Java doesn't let us garbage collect for ourselves.
+	 * @author Weston
+	 */
 	public void delete();
 }

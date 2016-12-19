@@ -18,6 +18,11 @@ import engine.model.systems.TargetingSystem;
 import engine.model.systems.TeamSystem;
 import gamePlayerView.gamePlayerView.Router;
 
+/**
+ * A component that finds targets for an entity
+ * @author Weston
+ *
+ */
 public class TargetingComponent extends AbstractComponent implements ITargeting, IViewableTargeting {
 
 	private double mySightRange;
@@ -50,7 +55,7 @@ public class TargetingComponent extends AbstractComponent implements ITargeting,
 				
 		target.attachComponent(this);
 	}
-	
+	/******************ITargeting interface********/
 	@Override
 	public IPosition getTarget() {
 		if (myPhysical.get(this) != null)
@@ -89,6 +94,7 @@ public class TargetingComponent extends AbstractComponent implements ITargeting,
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
+	/******************IComponent interface********/
 	@Override
 	public void distributeInfo() {
 		getRouter().distributeViewableComponent(this);

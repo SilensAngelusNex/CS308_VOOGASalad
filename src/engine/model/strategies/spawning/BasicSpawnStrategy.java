@@ -3,7 +3,6 @@ package engine.model.strategies.spawning;
 import engine.model.components.concrete.CreatorComponent;
 import engine.model.entities.ConcreteEntity;
 import engine.model.entities.EntityFactory;
-import engine.model.entities.IEntity;
 import engine.model.strategies.IPosition;
 import engine.model.strategies.ISpawningStrategy;
 import engine.model.strategies.factories.AbstractStrategyFactory;

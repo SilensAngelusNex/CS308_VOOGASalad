@@ -109,7 +109,7 @@ public class CreatorComponent extends AbstractComponent implements ICreator, IVi
 		}
 		
 	}
-	
+	/******************ICreator interface********/
 	@Override
 	public boolean isParent(IEntity entity) {
 		return myChildren.contains(entity);
@@ -130,14 +130,20 @@ public class CreatorComponent extends AbstractComponent implements ICreator, IVi
 		return mySpawnName;
 	}
 
-	@Override
-	public void distributeInfo() {
-		getRouter().distributeViewableComponent(this);
-	}
 
 	@Override
 	public int getTimeBetweenSpawns() {
 		return myTimeBetweenSpawns;
+	}
+	
+	@Override
+	public void updateStats(DamageInfo data) {
+		myStats.add(data);
+	}
+	
+	@Override
+	public DamageInfo getStats() {
+		return myStats;
 	}
 
 	/******************IObservable interface********/
@@ -156,18 +162,14 @@ public class CreatorComponent extends AbstractComponent implements ICreator, IVi
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
-	@Override
-	public void updateStats(DamageInfo data) {
-		myStats.add(data);
-	}
-	
-	@Override
-	public DamageInfo getStats() {
-		return myStats;
-	}
-
+	/******************Component interface********/
 	@Override
 	public void delete() {
 		mySpawning.detachComponent(this);
+	}
+
+	@Override
+	public void distributeInfo() {
+		getRouter().distributeViewableComponent(this);
 	}
 }

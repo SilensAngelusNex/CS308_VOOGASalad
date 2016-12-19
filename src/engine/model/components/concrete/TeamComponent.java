@@ -16,9 +16,9 @@ import engine.model.systems.TeamSystem;
 /**
  * The purpose of this class is to manage which team an entity belongs to
  * This information could be used to determine which entities should be targeted
- * since you may not want to target an entity on your own team
+ * since you may not want to target an entity on your own team (Or maybe you do. We don't judge.)
  * @author matthewfaw
- *
+ * @author Weston
  */
 public class TeamComponent extends AbstractComponent implements IViewableTeam {
 	private String myTeamID;
@@ -37,15 +37,12 @@ public class TeamComponent extends AbstractComponent implements IViewableTeam {
 		teams.attachComponent(this);
 	}
 	
+	/******************IViewableTeam interface********/
 	@Override
 	public String getTeamID() {
 		return myTeamID;
 	}
 
-	@Override
-	public void distributeInfo() {
-		getRouter().distributeViewableComponent(this);
-	}
 	
 	/******************IObservable interface********/
 	@Override
@@ -63,7 +60,14 @@ public class TeamComponent extends AbstractComponent implements IViewableTeam {
 		myObservers.forEach(observer -> observer.update(this));
 	}
 	
+	/******************IComponent interface********/
+	@Override
 	public void delete() {
 		mySystem.detachComponent(this);
+	}
+	
+	@Override
+	public void distributeInfo() {
+		getRouter().distributeViewableComponent(this);
 	}
 }

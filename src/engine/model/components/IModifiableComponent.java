@@ -8,6 +8,9 @@ import engine.model.entities.IEntity;
  *
  */
 public interface IModifiableComponent extends IComponent {
+	/**
+	 * Sets the component's entity to be e
+	 * @param e
+	 */
 	abstract public void setEntity(IEntity e);
-
 }

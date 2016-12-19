@@ -19,8 +19,11 @@ import gamePlayerView.gamePlayerView.Router;
  * For example, when this entity is killed, the bounty could represent
  * how much reward the other entity should receive 
  * 
+ * It also contains the point value for destroying entities and
+ * the lives a player loses if the entity reaches a sink point
+ * 
  * @author matthewfaw
- *
+ * @author Weston
  */
 public class BountyComponent extends AbstractComponent implements IViewableBounty {
 	private int myBountyValue;
@@ -44,11 +47,8 @@ public class BountyComponent extends AbstractComponent implements IViewableBount
 		
 		myBountySystem.attachComponent(this);
 	}
-	/**
-	 * A method to retrieve the bounty value associated with an entity
-	 * 
-	 * @return the bounty value
-	 */
+	
+	/******************IViewableBounty interface********/
 	@Override
 	public int getBounty() {
 		return myBountyValue;
@@ -62,11 +62,6 @@ public class BountyComponent extends AbstractComponent implements IViewableBount
 	@Override
 	public int getPoints() {
 		return myPointValue;
-	}
-	
-	@Override
-	public void distributeInfo() {
-		getRouter().distributeViewableComponent(this);
 	}
 	
 	/******************IObservable interface********/
@@ -85,7 +80,13 @@ public class BountyComponent extends AbstractComponent implements IViewableBount
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
+	/******************IComponent interface********/
 	public void delete() {
 		myBountySystem.detachComponent(this);
+	}
+	
+	@Override
+	public void distributeInfo() {
+		getRouter().distributeViewableComponent(this);
 	}
 }

@@ -40,8 +40,6 @@ public class PhysicalComponent extends AbstractComponent implements IPhysical, I
 	@Hide
 	private transient PhysicalSystem mySystem;
 
-	
-
 		
 	public PhysicalComponent(IEntity aEntity, PhysicalSystem physical, Router router, ComponentData data, Point position) {
 		super(aEntity, router);
@@ -57,7 +55,6 @@ public class PhysicalComponent extends AbstractComponent implements IPhysical, I
 		myHeading = 0;
 		
 		physical.attachComponent(this);
-		//System.out.println("Routing a physical component.");
 		router.createNewViewableComponent(this);
 		setPosition(position);
 	}
@@ -126,7 +123,7 @@ public class PhysicalComponent extends AbstractComponent implements IPhysical, I
 				o.update(this);
 	}
 
-	/***** Component interface ******/
+	/***** IComponent interface ******/
 
 	@Override
 	public void distributeInfo() {

@@ -24,6 +24,7 @@ import utility.Point;
  * These entities will register with the CollisionDetectionSystem, and this
  * class will define what happens when a collision occurs
  * @author matthewfaw
+ * @author Weston
  *
  */
 public class CollidableComponent extends AbstractComponent implements ICollidable, IViewableCollidable {
@@ -94,20 +95,22 @@ public class CollidableComponent extends AbstractComponent implements ICollidabl
 			return false;
 	}
 	
+	/**
+	 * When one this collides into an unmovedCollidable, they deal damage to each other, if they can.
+	 * @param unmovedCollidable
+	 */
 	private void collideInto(CollidableComponent unmovedCollidable) {
 		dealDamage(this, unmovedCollidable);
 		dealDamage(unmovedCollidable, this);
 	}
 
+	/**
+	 * Dealing damage uses the DamageDealingSystem to check if a can damage b
+	 * @param a
+	 * @param b
+	 */
 	private void dealDamage(CollidableComponent a, CollidableComponent b) {
-		
 		myDamageDealingSystem.dealDamageToTarget(a, b);
-
-	}
-
-	@Override
-	public void distributeInfo() {
-		getRouter().distributeViewableComponent(this);
 	}
 
 	/******************IObservable interface********/
@@ -126,8 +129,14 @@ public class CollidableComponent extends AbstractComponent implements ICollidabl
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
+	/******************IComponent interface********/
 	@Override
 	public void delete() {
 		myCollidable.detachComponent(this);
+	}
+	
+	@Override
+	public void distributeInfo() {
+		getRouter().distributeViewableComponent(this);
 	}
 }

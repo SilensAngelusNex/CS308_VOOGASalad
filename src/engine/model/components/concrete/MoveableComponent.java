@@ -96,37 +96,7 @@ public class MoveableComponent extends AbstractComponent implements IMovable, IV
 		movement.attachComponent(this);
 	}
 	
-	private Pair<Double, Point> moveTowardsGoal(IPhysical p) {
-		if ((myMaxDistance - myMovedDistance) < myMoveSpeed)
-			myMoveSpeed = Math.max(0.0, myMovedDistance - myMaxDistance + Math.exp(-6));
-		
-		Pair<Double, Point> nextMove = myMovementCalc.nextMove(this, p);
-		myMovedDistance += nextMove.getValue().euclideanDistance(p.getPosition());
 
-		p.setPosition(nextMove);
-		return nextMove;
-	}
-
-	//********************IMovable interface***********//
-	@Override
-	public Point getGoalPoint() {
-		return (myGoal == null) ? null : myGoal.getPosition();
-	}
-	
-	@Override
-	public IPosition getGoal() {
-		return myGoal;
-	}
-
-	@Override
-	public double getTurnSpeed() {
-		return myTurnSpeed;
-	}
-
-	@Override
-	public double getMoveSpeed() {
-		return myMoveSpeed;
-	}
 	
 	public void setGoal(IPosition p) {
 		myGoal = p;
@@ -158,8 +128,28 @@ public class MoveableComponent extends AbstractComponent implements IMovable, IV
 		if (removeOnGoal && atGoal()) {
 			myBounty.pillagePlayerBase(this);
 			getEntity().delete();
-		}
-		
+		}	
+	}
+	
+	/********************IMovable interface***********/
+	@Override
+	public Point getGoalPoint() {
+		return (myGoal == null) ? null : myGoal.getPosition();
+	}
+	
+	@Override
+	public IPosition getGoal() {
+		return myGoal;
+	}
+
+	@Override
+	public double getTurnSpeed() {
+		return myTurnSpeed;
+	}
+
+	@Override
+	public double getMoveSpeed() {
+		return myMoveSpeed;
 	}
 	
 	/******************IObservable interface********/
@@ -178,26 +168,47 @@ public class MoveableComponent extends AbstractComponent implements IMovable, IV
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
+	/******************IViewableMovable interface********/
+	@Override
+	public IMovementStrategy getMovementStrategy() {
+		return myMovementCalc;
+	}
+	
+	/******************IComponent interface********/
+	@Override
+	public void delete() {
+		myMovement.detachComponent(this);
+	}
+	
 	@Override
 	public void distributeInfo() {
 		getRouter().distributeViewableComponent(this);
 	}
 
-	@Override
-	public IMovementStrategy getMovementStrategy() {
-		return myMovementCalc;
-	}
-
-	@Override
-	public void delete() {
-		myMovement.detachComponent(this);
-	}
-
+	/**
+	 * Checks if this entity has reached it's goal or not
+	 * @return true iff yes
+	 */
 	private boolean atGoal() {
 		IPhysical p = myPhysical.get(this);
 		if (p != null)
 			return myPhysical.get(this).getPosition().equals(getGoalPoint());
 		else
 			return false;
+	}
+	
+	/**
+	 * @param p the physical part of this entity
+	 * @return the next point the entity should  move to and the corresponding heading
+	 */
+	private Pair<Double, Point> moveTowardsGoal(IPhysical p) {
+		if ((myMaxDistance - myMovedDistance) < myMoveSpeed)
+			myMoveSpeed = Math.max(0.0, myMovedDistance - myMaxDistance + Math.exp(-6));
+		
+		Pair<Double, Point> nextMove = myMovementCalc.nextMove(this, p);
+		myMovedDistance += nextMove.getValue().euclideanDistance(p.getPosition());
+
+		p.setPosition(nextMove);
+		return nextMove;
 	}
 }

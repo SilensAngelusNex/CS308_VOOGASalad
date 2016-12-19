@@ -25,7 +25,7 @@ public class HealthSystem implements ISystem<HealthComponent> {
 		if (healthComponent == null)
 			return false;
 		else
-			return healthComponent.getCurrentHealth() <= 0;
+			return healthComponent.getCurrHealth() <= 0;
 	}
 	
 	public DamageInfo dealDamageTo(IComponent target, Damage damageToTake) {

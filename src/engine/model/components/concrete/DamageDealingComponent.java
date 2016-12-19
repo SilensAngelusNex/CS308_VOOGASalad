@@ -97,16 +97,6 @@ public class DamageDealingComponent extends AbstractComponent implements IViewab
 	{
 		return myDamageStrategy.getAoEDamage(dealer, taker, myDamage);
 	}
-	
-	/**
-	 * gets the radius of effect of this entity
-	 * @return the radius
-	 */
-	@Override
-	public double getDamageRadius()
-	{
-		return myDamageRadius;
-	}
 
 	public DamageInfo explode(IComponent target) {
 		DamageInfo result = new DamageInfo();
@@ -147,11 +137,12 @@ public class DamageDealingComponent extends AbstractComponent implements IViewab
 		return result;
 	}
 
+	/******************IViewableDamageDealer interface********/
 	@Override
-	public void distributeInfo() {
-		getRouter().distributeViewableComponent(this);
+	public double getDamageRadius() {
+		return myDamageRadius;
 	}
-
+	
 	@Override
 	public int getDamage() {
 		return myDamage;
@@ -178,7 +169,13 @@ public class DamageDealingComponent extends AbstractComponent implements IViewab
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
+	/******************IComponent interface********/
 	public void delete() {
 		myDamageSystem.detachComponent(this);
+	}
+	
+	@Override
+	public void distributeInfo() {
+		getRouter().distributeViewableComponent(this);
 	}
 }

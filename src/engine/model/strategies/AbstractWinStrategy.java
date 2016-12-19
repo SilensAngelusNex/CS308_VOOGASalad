@@ -20,5 +20,10 @@ abstract public class AbstractWinStrategy<A> extends AbstractWinLoseStrategy<A> 
 				p.win();
 	}
 
+	/**
+	 * Check the if the win condition is satisfied
+	 * @param observed
+	 * @return true iff condition is satisfied
+	 */
 	abstract protected boolean checkCondition(A observed);
 }

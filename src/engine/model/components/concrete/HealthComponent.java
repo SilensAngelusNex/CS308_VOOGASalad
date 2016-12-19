@@ -60,19 +60,23 @@ public class HealthComponent extends AbstractComponent implements IViewableHealt
 		
 		myObservers = new ArrayList<IObserver<IViewableHealth>>();
 		
-		healthSystem.attachComponent(this);
-		
-	}
-		
-	public int getCurrentHealth() {
-		return myCurrHealth.intValue();
+		healthSystem.attachComponent(this);	
 	}
 	
+	/**
+	 * Sets a new health value
+	 * @param newHealthValue
+	 */
 	public void setCurrentHealth(double newHealthValue) {
 		myCurrHealth = newHealthValue;
 		//notifyObservers();
 	}
 	
+	/**
+	 * Takes the damage stored in dmg
+	 * @param dmg
+	 * @return the damage statistics
+	 */
 	public DamageInfo takeDamage(Damage dmg) {
 		double newCurrHealth = myCurrHealth - dmg.getDamage();
 		
@@ -98,6 +102,10 @@ public class HealthComponent extends AbstractComponent implements IViewableHealt
 		return new DamageInfo(dmg.getDamage(), died, bounty);		
 	}
 	
+	/**
+	 * Sets max Hp to m
+	 * @param m
+	 */
 	public void setMaxHealth(double m) {
 		myMaxHealth = m;
 		
@@ -123,6 +131,7 @@ public class HealthComponent extends AbstractComponent implements IViewableHealt
 		myObservers.forEach(observer -> observer.update(this));
 	}
 
+	/********* IViewableHealth Interface **********/
 	@Override
 	public double getMaxHealth() {
 		return myMaxHealth;
@@ -133,6 +142,7 @@ public class HealthComponent extends AbstractComponent implements IViewableHealt
 		return myCurrHealth;
 	}
 
+	/********* IComponent Interface **********/
 	@Override
 	public void distributeInfo() {
 		getRouter().distributeViewableComponent(this);
