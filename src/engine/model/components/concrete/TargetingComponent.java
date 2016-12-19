@@ -58,8 +58,8 @@ public class TargetingComponent extends AbstractComponent implements ITargeting,
 	/******************ITargeting interface********/
 	@Override
 	public IPosition getTarget() {
-		if (myPhysical.get(this) != null)
-			return myTargetingStrategy.target(myPhysical, myTeams, myPhysical.get(this), this);
+		if (myPhysical.getComponent(this) != null)
+			return myTargetingStrategy.target(myPhysical, myTeams, myPhysical.getComponent(this), this);
 		return null;
 	}
 

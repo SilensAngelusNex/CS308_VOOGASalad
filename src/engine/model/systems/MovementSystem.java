@@ -9,8 +9,14 @@ import engine.model.components.IComponent;
 import engine.model.components.concrete.MoveableComponent;
 import engine.model.entities.IEntity;
 import engine.model.game_environment.MapMediator;
+import engine.model.strategies.IMovementStrategy;
 import engine.model.strategies.factories.MovementStrategyFactory;
 
+/**
+ * A system to keep track of and move movable components
+ * @author Weston
+ *
+ */
 public class MovementSystem implements ISystem<MoveableComponent>, IObserver<TimelineController> {
 	private List<MoveableComponent> myComponents;
 	private transient MovementStrategyFactory myStrategyFactory;
@@ -20,13 +26,15 @@ public class MovementSystem implements ISystem<MoveableComponent>, IObserver<Tim
 		myStrategyFactory = new MovementStrategyFactory(map);
 		time.attach(this);
 	}
-	
-	public MoveableComponent get(IEntity entity) {
-		return getComponent(entity);
-	}
-	
-	public MovementStrategyFactory getStrategyFactory() {
-		return myStrategyFactory;
+
+	/**
+	 * Creates a new movement strategy named name
+	 * Used for MovementComponent construction
+	 * @param name
+	 * @return the new strategy
+	 */
+	public IMovementStrategy newStrategy(String name) {
+		return myStrategyFactory.newStrategy(name);
 	}
 	
 	/********* Observer interface ***********/
@@ -38,15 +46,11 @@ public class MovementSystem implements ISystem<MoveableComponent>, IObserver<Tim
 			mc.move();
 		}
 	}
-
-	public MoveableComponent get(IComponent c) {
-		return c == null ? null : getComponent(c.getEntity());
-	}
 	@Override
 	public void remove(TimelineController aRemovedObject) {
 		//Do nothing.
-
 	}
+	
 	/***********ISystem interface*******/
 	@Override
 	public List<MoveableComponent> getComponents() {

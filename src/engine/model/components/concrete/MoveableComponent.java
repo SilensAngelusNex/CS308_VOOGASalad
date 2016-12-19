@@ -89,7 +89,7 @@ public class MoveableComponent extends AbstractComponent implements IMovable, IV
 		
 		myTurnSpeed = Double.parseDouble(data.getFields().get("myTurnSpeed"));
 		myMoveSpeed = Double.parseDouble(data.getFields().get("myMoveSpeed"));
-		myMovementCalc = movement.getStrategyFactory().newStrategy(data.getFields().get("myMovementCalc"));
+		myMovementCalc = movement.newStrategy(data.getFields().get("myMovementCalc"));
 		
 		myObservers = new ArrayList<IObserver<IViewableMovable>>();
 		
@@ -109,7 +109,7 @@ public class MoveableComponent extends AbstractComponent implements IMovable, IV
 		if ((myGoal != null && myGoal.getPosition() == null))
 			getEntity().delete();
 		
-		PhysicalComponent p = myPhysical.get(this);
+		PhysicalComponent p = myPhysical.getComponent(this);
 		if (p != null)
 			moveTowardsGoal(p);
 		
@@ -190,9 +190,9 @@ public class MoveableComponent extends AbstractComponent implements IMovable, IV
 	 * @return true iff yes
 	 */
 	private boolean atGoal() {
-		IPhysical p = myPhysical.get(this);
+		IPhysical p = myPhysical.getComponent(this);
 		if (p != null)
-			return myPhysical.get(this).getPosition().equals(getGoalPoint());
+			return myPhysical.getComponent(this).getPosition().equals(getGoalPoint());
 		else
 			return false;
 	}

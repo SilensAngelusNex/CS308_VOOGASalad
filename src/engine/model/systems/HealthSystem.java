@@ -10,6 +10,7 @@ import engine.model.weapons.DamageInfo;
 import utility.Damage;
 
 /**
+ * A system to keep track of health and units taking damage
  * @author Weston
  * @author owenchung(edited)
  *
@@ -20,14 +21,13 @@ public class HealthSystem implements ISystem<HealthComponent> {
 	public HealthSystem() {
 		myComponents = new ArrayList<HealthComponent>();
 	}
-	public boolean isDead(IEntity entity) {
-		HealthComponent healthComponent = getComponent(entity);
-		if (healthComponent == null)
-			return false;
-		else
-			return healthComponent.getCurrHealth() <= 0;
-	}
 	
+	/**
+	 * Deals the damageToTake to the HealthComponent corresponding to target
+	 * @param target
+	 * @param damageToTake
+	 * @return
+	 */
 	public DamageInfo dealDamageTo(IComponent target, Damage damageToTake) {
 		HealthComponent health = getComponent(target);
 		if (health != null) {

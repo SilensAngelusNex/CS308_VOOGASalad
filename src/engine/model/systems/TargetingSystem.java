@@ -11,6 +11,11 @@ import engine.model.strategies.IPosition;
 import engine.model.strategies.ITargetingStrategy;
 import engine.model.strategies.factories.TargetingStrategyFactory;
 
+/**
+ * A system that allows entities to target other entites
+ * @author Weston
+ *
+ */
 public class TargetingSystem implements ISystem<TargetingComponent> {
 	private List<TargetingComponent> myComponents;
 	private transient TargetingStrategyFactory myStrategyFactory;
@@ -20,6 +25,11 @@ public class TargetingSystem implements ISystem<TargetingComponent> {
 		myStrategyFactory = new TargetingStrategyFactory();
 	}
 	
+	/**
+	 * Return c's newly calculated target
+	 * @param c
+	 * @return
+	 */
 	public IPosition getTarget(MoveableComponent c) {
 		TargetingComponent t = getComponent(c);
 		if (t != null)
@@ -27,6 +37,11 @@ public class TargetingSystem implements ISystem<TargetingComponent> {
 		return c.getGoal();
 	}
 	
+	/**
+	 * Returns c's newly calculated target
+	 * @param c
+	 * @return
+	 */
 	public IPosition getTarget(CreatorComponent c) {
 		TargetingComponent t = getComponent(c);
 		if (t != null)
@@ -34,13 +49,25 @@ public class TargetingSystem implements ISystem<TargetingComponent> {
 		return c.getTarget();
 	}
 	
+	/**
+	 * Checks if c's entity has a component in myComponents
+	 * @param c
+	 * @return true iff it does
+	 */
 	public boolean canTarget(IComponent c) {
 		return getComponent(c) != null;
 	}
 
+	/**
+	 * Creates a new targeting strategy named name
+	 * Used for targetingComponent construction
+	 * @param name
+	 * @return the new strategy
+	 */
 	public ITargetingStrategy newStrategy(String name) {
 		return myStrategyFactory.newStrategy(name);
 	}
+	
 	/***********ISystem interface*******/
 	@Override
 	public List<TargetingComponent> getComponents() {

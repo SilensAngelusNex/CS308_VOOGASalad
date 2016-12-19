@@ -127,8 +127,8 @@ public class DamageDealingComponent extends AbstractComponent implements IViewab
 		DamageInfo result = new DamageInfo();
 
 		//Deal damage to anyone in blast radius
-		PhysicalComponent myPhysical = myPhysicalSystem.get(this);
-		if (myPhysicalSystem.get(this) != null) {
+		PhysicalComponent myPhysical = myPhysicalSystem.getComponent(this);
+		if (myPhysicalSystem.getComponent(this) != null) {
 			List<PhysicalComponent> inBlast = myPhysicalSystem.withinRange(myPhysical.getPosition(), myDamageRadius, myPhysical.getHeading(), myDamageArc);
 			for (PhysicalComponent p: inBlast){
 				result.add(myHealthSystem.dealDamageTo(p, getDamageTo(myPhysical, p)));

@@ -96,7 +96,7 @@ public class CreatorComponent extends AbstractComponent implements ICreator, IVi
 	 */
 	public void spawnIfReady() {
 		myTarget = myTargeting.getTarget(this);
-		if (myPhysical.get(this) != null)
+		if (myPhysical.getComponent(this) != null)
 			if (myTarget != null && myTimeSinceSpawning >= myTimeBetweenSpawns) {
 				myTimeSinceSpawning = 0;
 				if (homingProjectiles)

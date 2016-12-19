@@ -17,28 +17,40 @@ public class DamageDealingSystem implements ISystem<DamageDealingComponent> {
 		myComponents = new ArrayList<DamageDealingComponent>();
 		myStrategyFactory = new DamageStrategyFactory();
 	}
-	
-	public DamageDealingComponent get(IComponent c) {
-		return getComponent(c);
-	}
 
+	/**
+	 * Makes a deal damage to b and explode, if applicable
+	 * @param a
+	 * @param b
+	 */
 	public void dealDamageToTarget(IComponent a, IComponent b) {
-		if (get(a) != null && !a.equals(b))
-			get(a).explode(b);
-	}
-	
-	public IDamageStrategy newStrategy(String name) {
-		return myStrategyFactory.newStrategy(name);
+		if (getComponent(a) != null && !a.equals(b))
+			getComponent(a).explode(b);
 	}
 
+	/**
+	 * Makes c's entity explode, possibly dealing damage to nearby entities
+	 * @param c
+	 */
 	public void explode(IComponent c) {
-		DamageDealingComponent dmg = get(c);
+		DamageDealingComponent dmg = getComponent(c);
 		if(dmg != null)
 			dmg.explode();
 		else {
 			c.getEntity().delete();
 		}
 	}
+	
+	/**
+	 * Creates a new damage strategy named name
+	 * Used for DamageDealingComponent construction
+	 * @param name
+	 * @return the new strategy
+	 */
+	public IDamageStrategy newStrategy(String name) {
+		return myStrategyFactory.newStrategy(name);
+	}
+	
 	/***********ISystem interface*******/
 	@Override
 	public List<DamageDealingComponent> getComponents() {

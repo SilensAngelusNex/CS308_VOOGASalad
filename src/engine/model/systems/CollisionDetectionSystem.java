@@ -12,10 +12,8 @@ import engine.model.entities.IEntity;
  * A system to manage collision detection in the game
  * Entities with the proper components can register with the
  * Collision detection system so that collisions may be reported
- * 
- * This class is an observer to Physical components
- * 
- * This class is observable by any system
+ * @author Weston
+ * @author Alan
  *
  */
 public class CollisionDetectionSystem implements ISystem<CollidableComponent> {
@@ -30,7 +28,7 @@ public class CollisionDetectionSystem implements ISystem<CollidableComponent> {
 	 * @param the physical component that changed position
 	 */
 	public void checkCollision(PhysicalComponent movedPhysical) {
-		CollidableComponent movedCollidable = get(movedPhysical);
+		CollidableComponent movedCollidable = getComponent(movedPhysical);
 		if (movedCollidable != null) {
 			List<CollidableComponent> iterate = new ArrayList<CollidableComponent>(getComponents());
 			for (CollidableComponent unmovedCollidable: iterate)	
@@ -38,9 +36,6 @@ public class CollisionDetectionSystem implements ISystem<CollidableComponent> {
 		}
 	}
 	
-	public CollidableComponent get(IComponent c) {
-		return getComponent(c);
-	}
 	
 	/**************ISystem interface*******************/
 	@Override

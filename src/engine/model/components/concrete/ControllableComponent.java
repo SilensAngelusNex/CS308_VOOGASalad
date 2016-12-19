@@ -50,8 +50,8 @@ public class ControllableComponent extends AbstractComponent{
 	
 
 	public void move(String movement) {
-		PhysicalComponent p = myPhysicalSystem.get(this);
-		MoveableComponent m = myMovementSystem.get(this);
+		PhysicalComponent p = myPhysicalSystem.getComponent(this);
+		MoveableComponent m = myMovementSystem.getComponent(this);
 		Pair<Double,Point> nextposition = getNextPosition(p, m, movement);
 		p.setPosition(nextposition);
 		myCollisionDetectionSystem.checkCollision(p);

@@ -7,14 +7,24 @@ import engine.model.components.IComponent;
 import engine.model.components.concrete.TeamComponent;
 import engine.model.entities.IEntity;
 
+/**
+ * A system that tracks which team entities belong to.
+ * @author Weston
+ *
+ */
 public class TeamSystem implements ISystem<TeamComponent> {
 	private List<TeamComponent> myComponents;
 	
-	public TeamSystem()
-	{
+	public TeamSystem() {
 		myComponents = new ArrayList<TeamComponent>();
 	}
 
+	/**
+	 * Checks if a and b are enemies. If one or both have no team data, default is that they are enemies
+	 * @param a
+	 * @param b
+	 * @return false iff a and b are allies
+	 */
 	public boolean areEnemies(IComponent a, IComponent b) {
 		TeamComponent aTeam = getComponent(a);
 		TeamComponent bTeam = getComponent(b);
@@ -26,6 +36,12 @@ public class TeamSystem implements ISystem<TeamComponent> {
 		}
 	}
 
+	/**
+	 * Checks if a and b are allies. If one or both have no team data, default is that they are enemies
+	 * @param a
+	 * @param b
+	 * @return true iff a and b are allies
+	 */
 	public boolean areAllies(IComponent a, IComponent b) {
 		return !areEnemies(a, b);
 	}
@@ -48,6 +64,7 @@ public class TeamSystem implements ISystem<TeamComponent> {
 		}
 		return null;
 	}
+	
 	@Override
 	public void attachComponent(TeamComponent aComponet) {
 		myComponents.add(aComponet);

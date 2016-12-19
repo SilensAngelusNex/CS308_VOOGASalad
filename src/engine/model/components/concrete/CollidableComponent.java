@@ -80,9 +80,9 @@ public class CollidableComponent extends AbstractComponent implements ICollidabl
 	 * collision radii; false if not
 	 */
 	private boolean intersects(CollidableComponent c) {
-		if (myPhysicalSystem.get(this) != null && myPhysicalSystem.get(c) != null) {
-			Point a = myPhysicalSystem.get(this).getPosition();
-			Point b = myPhysicalSystem.get(c).getPosition();
+		if (myPhysicalSystem.getComponent(this) != null && myPhysicalSystem.getComponent(c) != null) {
+			Point a = myPhysicalSystem.getComponent(this).getPosition();
+			Point b = myPhysicalSystem.getComponent(c).getPosition();
 			
 			double a_r = getCollisionRadius();
 			double b_r = c.getCollisionRadius();

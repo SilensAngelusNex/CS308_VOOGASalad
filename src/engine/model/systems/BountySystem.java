@@ -9,6 +9,11 @@ import engine.model.entities.IEntity;
 import engine.controller.PlayerController;
 import engine.model.playerinfo.IModifiablePlayer;
 
+/**
+ * A system to keep track of the bounties of entities and award them to the player.
+ * @author Weston
+ *
+ */
 public class BountySystem implements ISystem<BountyComponent> {
 	private List<BountyComponent> myComponents;
 	private IModifiablePlayer myPlayer;
@@ -19,6 +24,11 @@ public class BountySystem implements ISystem<BountyComponent> {
 		myPlayer = player.getPlayer(0);
 	}
 	
+	/**
+	 * Called when a c's entity reaches its goal, (an enemy reaches a player's base)
+	 * @param c
+	 * @return the amount of lives taken
+	 */
 	public int pillagePlayerBase(IComponent c) {
 		BountyComponent b = getComponent(c);
 		if (b == null)
@@ -27,6 +37,11 @@ public class BountySystem implements ISystem<BountyComponent> {
 		return b.getLivesTaken();
 	}
 	
+	/**
+	 * Called when c's entity is destroyed
+	 * @param c
+	 * @return the amount of bounty money
+	 */
 	public int collectBounty(IComponent c) {
 		BountyComponent b = getComponent(c);
 		if (b == null)
